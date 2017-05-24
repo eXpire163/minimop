@@ -41,17 +41,15 @@ class Sound(object):
                 pygame.mixer.music.load("../fx/SciFiRobotSound.wav")
                 pygame.mixer.music.play()
 
-    def __init__(self):
+    def __init__(self, server="localhost", port=1883):
         pygame.mixer.init()
 
         client = mqtt.Client()
         client.on_connect = self.on_connect
         client.on_message = self.on_message
 
-        client.connect("localhost", 1883, 60)
+        self.printme("connting to {}:{} ".format(server,port))
+        client.connect(server, port, 60)
+        self.printme("connected")
 
-        client.loop_forever()
-
-
-
-s = Sound()
+        #client.loop_forever()
