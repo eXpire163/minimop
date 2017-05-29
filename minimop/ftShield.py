@@ -13,7 +13,7 @@ class FTShield:
         atexit.register(self.turnOffMotors)
         self.mh = Adafruit_MotorHAT(addr=0x60)
 
-    def log(self,txt):
+    def log(self, txt):
         if self.debug:
             print(txt)
 
