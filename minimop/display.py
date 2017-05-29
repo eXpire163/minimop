@@ -13,32 +13,35 @@ def aktuelleZeit(werta, wertb):
     zeitpunktMessung = time.localtime()
     jahr, monat, tag = zeitpunktMessung[0:3]
     stunde, minute, sekunde = zeitpunktMessung[3:6]
-    systemUhrzeit = str(stunde).zfill(2) + ":" + str(minute).zfill(2) + ":" + str(sekunde).zfill(2)
-    systemDatum = str(tag).zfill(2) + "." + str(monat).zfill(2) + "." + str(jahr)
+    hour = str(stunde).zfill(2)
+    min = str(minute).zfill(2)
+    sec = str(sekunde).zfill(2)
+    system_uhrzeit = "{}:{}:{}".format(hour, min, sec)
+    system_datum = str(tag).zfill(2) + "." + str(monat).zfill(2) + "." + str(jahr)
     if werta == "time" and wertb == "date":
-        ermittelteZeit = systemUhrzeit + " " + systemDatum
+        ermittelte_zeit = system_uhrzeit + " " + system_datum
     elif werta == "date" and wertb == "time":
-        ermittelteZeit = systemDatum + " " + systemUhrzeit
+        ermittelte_zeit = system_datum + " " + system_uhrzeit
     elif werta == "time" and wertb == "":
-        ermittelteZeit = systemUhrzeit
+        ermittelte_zeit = system_uhrzeit
     elif werta == "date" and wertb == "":
-        ermittelteZeit = systemDatum
+        ermittelte_zeit = system_datum
     else:
-        ermittelteZeit = zeitpunktMessung
-    return ermittelteZeit
+        ermittelte_zeit = zeitpunktMessung
+    return ermittelte_zeit
 
-def updateText(topic, payload):
+def update_text(topic, payload):
     draw.rectangle((0,0,width,height), outline=0, fill=0) #Display leeren
-    displayTime = aktuelleZeit("time", "date") # bei Abfrage "date","time" aendert die Reihenfolge der Ausgabe
+    display_time = aktuelleZeit("time", "date") # bei Abfrage "date","time" aendert die Reihenfolge der Ausgabe
     draw.text((x, top), topic , font=font, fill=255)
     draw.text((x, top+20), payload, font=font_c, fill=255)
     draw.line((x, top+45, x+width, top+45), fill=255)
-    draw.text((x, top+50), displayTime, font=font, fill=255)
-    #image.show()
+    draw.text((x, top+50), display_time, font=font, fill=255)
+    # image.show()
     disp.image(image)
     disp.display()
 
-def updateImage(imagepath):
+def update_image(imagepath):
     image = Image.open(imagepath)
     #image_r = image.resize((width,height), Image.BICUBIC)
     #image_bw = image_r.convert("1")
@@ -75,14 +78,14 @@ def on_message(client, userdata, msg):
     printme(msg.topic+" "+str(msg.payload))
     if(msg.topic=="minimop/display/image"):
         printme("slide");
-        updateImage(msg.payload)
+        update_image(msg.payload)
     elif(msg.topic=="minimop/display/folder"):
         filelist = os.listdir(msg.payload)
         filelist.sort()
         for file in filelist:
             if file.endswith(".bmp"):
                 printme(os.path.join("file: ", file))
-                updateImage(os.path.join(msg.payload,file))
+                update_image(os.path.join(msg.payload, file))
                 #time.sleep(0.025)
     elif(msg.topic=="minimop/display/drawtest"):
         totaltime=datetime.datetime.now()-datetime.datetime.now();
@@ -105,7 +108,7 @@ def on_message(client, userdata, msg):
         
     else:
         printme("no slide, "+msg.topic)
-        updateText(msg.topic, msg.payload)
+        update_text(msg.topic, msg.payload)
 
 def turnOffDisp():
     disp.clear()
