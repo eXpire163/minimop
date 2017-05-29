@@ -1,4 +1,6 @@
 import paho.mqtt.client as mqtt
+from ftShield import FTShield
+
 
 def printme(text):
     print("MOTION: "+text)
@@ -13,9 +15,9 @@ def on_connect(client, userdata, flags, rc):
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
     printme(msg.topic+" "+str(msg.payload))
-    befehl = payload.decode('utf8').split(',')
-    if(len(befehl)==3):
-        ftShield.setMotor(befehl[0],befehl[2],befehl[1])
+    befehl = msg.payload.decode('utf8').split(',')
+    if 3 == len(befehl):
+        ftShield.setMotor(befehl[0], befehl[2], befehl[1])
 
 client = mqtt.Client()
 client.on_connect = on_connect

@@ -1,4 +1,18 @@
+import unittest
+
+
 from ftSense import FTSense
 
-sense = FTSense()
-distance = sense.read_sensor()
+
+
+
+class TestMoterManager(object):
+
+
+    def test_init(self):
+        """If you would MoterManager() stop motor when you build it your test looks like follow code"""
+        sense = FTSense()
+        dist = sense.get_distance()
+        print dist
+        assert dist == 0
+

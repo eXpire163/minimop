@@ -1,6 +1,10 @@
-﻿import RPi.GPIO as GPIO
-import time
+﻿try:
+    import RPi as GPIO
+except ImportError:
+    from minimop.mocks.mypi import GPIO
+
 import atexit
+import time
 
 
 class FTSense:
@@ -19,13 +23,16 @@ class FTSense:
         time.sleep(2)
 
     def printme(self, txt):
+        ## type: ( ) -> txt
         print("ftSense: {}".format(txt))
 
-    def read_sensor(self):
-        # type: () -> number
+    def get_distance(self):
         GPIO.output(self.TRIG, True)
         time.sleep(0.00001)
         GPIO.output(self.TRIG, False)
+
+        pulse_start = time.time()
+        pulse_end = time.time()
 
         while GPIO.input(self.ECHO) == 0:
             pulse_start = time.time()
