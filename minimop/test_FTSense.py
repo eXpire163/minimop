@@ -14,5 +14,5 @@ class TestMoterManager(object):
         sense = FTSense()
         dist = sense.get_distance()
         print dist
-        assert dist == 0
+        assert dist >= 0
 
