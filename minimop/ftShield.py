@@ -1,5 +1,6 @@
 ﻿from Adafruit_MotorHAT import Adafruit_MotorHAT, Adafruit_DCMotor
 import atexit
+import time
 
 class FTShield:
     maxSpeed = 204
@@ -8,6 +9,8 @@ class FTShield:
     mh = ""
     debug = True
     isLive = True
+    left_motor = 1
+    right_motor = 2
 
     def __init__(self):
         atexit.register(self.turnOffMotors)
@@ -68,3 +71,31 @@ class FTShield:
         self.mh.getMotor(2).run(Adafruit_MotorHAT.RELEASE)
         self.mh.getMotor(3).run(Adafruit_MotorHAT.RELEASE)
         self.mh.getMotor(4).run(Adafruit_MotorHAT.RELEASE)
+
+    def move(self, speed=1):
+        '''speed from 0 to 1'''
+        self.setMotor(self.left_motor, 'left', speed)
+        self.setMotor(self.right_motor, 'right', speed)
+        time.sleep(0.5)
+
+    def stop(self):
+        self.move(0)
+
+    def turn_left(self, duration):
+        self.setMotor(self.left_motor, 'right', 0.5)
+        self.setMotor(self.right_motor, 'right', 0.5)
+        time.sleep(duration)
+
+    def turn_right(self, duration):
+        self.setMotor(self.left_motor, 'left', 0.5)
+        self.setMotor(self.right_motor, 'left', 0.5)
+        time.sleep(duration)
+
+    def backward(self, duration):
+        self.setMotor(self.left_motor, 'right', 0.5)
+        self.setMotor(self.right_motor, 'left', 0.5)
+        time.sleep(duration)
+
+
+
+
