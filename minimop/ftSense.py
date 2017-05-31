@@ -1,7 +1,9 @@
 ﻿try:
-    import RPi as GPIO
+    import RPi.GPIO as GPIO
+    print "using real gpio"
 except ImportError:
     from minimop.mocks.mypi import GPIO
+    print "using mock gpio"
 
 from helper.mathf import Mathf
 import atexit
@@ -14,11 +16,12 @@ class FTSense:
     ECHO = 24
 
     SERVO = 11  # 7
-    SERVO_ACTIVE = True
+    SERVO_ACTIVE = False
 
     def __init__(self):
-        atexit.register(self.on_close)
+        print GPIO.getmode()
         GPIO.setmode(GPIO.BCM)
+        atexit.register(self.on_close)
 
         #distance senosr
         GPIO.setup(self.TRIG, GPIO.OUT)
@@ -41,7 +44,7 @@ class FTSense:
         ## type: ( ) -> txt
         print("ftSense: {}".format(txt))
 
-    def get_distance(self):
+    def get_distance(self, printinfo=False):
         GPIO.output(self.TRIG, True)
         time.sleep(0.00001)
         GPIO.output(self.TRIG, False)
@@ -58,7 +61,8 @@ class FTSense:
         pulse_duration = pulse_end - pulse_start
         distance = pulse_duration * 17150
         distance = round(distance, 2)
-        self.printme("Distance: {} cm".format(distance))
+        if printinfo:
+            self.printme("Distance: {} cm".format(distance))
         return distance
 
     def set_direction(self, direction):
