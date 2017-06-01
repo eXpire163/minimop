@@ -1,5 +1,5 @@
 from ftSense import FTSense
-from conf import Mop
+from minimop.conf import Mop
 import paho.mqtt.client as mqtt
 import json
 

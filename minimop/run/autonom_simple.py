@@ -1,6 +1,6 @@
-import ftShield
 import ftSense
 
+from minimop.hardware import ftShield
 
 mid_range = 15
 low_range = 8

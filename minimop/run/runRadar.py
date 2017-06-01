@@ -1,4 +1,4 @@
-from ftRadar import FTRadar
+from minimop.hardware.ftRadar import FTRadar
 
 radar = FTRadar()
 

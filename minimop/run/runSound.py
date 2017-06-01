@@ -3,7 +3,7 @@ from tempfile import TemporaryFile
 from gtts import gTTS
 import paho.mqtt.client as mqtt
 import pygame
-from conf import Mop
+from minimop.conf import Mop
 
 
 class Sound(object):

@@ -1,5 +1,7 @@
+.vscode
 .idea/
 .cache/
+dist
 __pycache__
 opencv/
 Adafruit_Python_SSD1306/

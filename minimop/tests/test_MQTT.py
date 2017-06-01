@@ -1,9 +1,9 @@
-import runSound
 import time
 
+import minimop.run.runSound
 
 print("startup main")
-s = runSound.Sound("test.mosquitto.org", 1883)
+s = minimop.run.runSound.Sound("test.mosquitto.org", 1883)
 print("running main")
 
 

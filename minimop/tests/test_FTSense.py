@@ -1,4 +1,4 @@
-from ftSense import FTSense
+from minimop.hardware.ftSense import FTSense
 
 
 class TestMoterManager(object):

@@ -5,8 +5,8 @@ except ImportError:
     from minimop.mocks.mypi import GPIO
     print "using mock gpio"
 
-from helper.mathf import Mathf
-from conf import Mop
+from minimop.helper.mathf import Mathf
+from minimop.conf import Mop
 import atexit
 import time
 

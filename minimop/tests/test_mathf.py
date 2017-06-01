@@ -1,4 +1,4 @@
-from mathf import Mathf
+from minimop.helper.mathf import Mathf
 
 
 def capital_case(mixcase):

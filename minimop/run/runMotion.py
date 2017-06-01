@@ -1,5 +1,6 @@
 import paho.mqtt.client as mqtt
-from ftShield import FTShield
+
+from minimop.hardware.ftShield import FTShield
 
 
 def printme(text):

@@ -1,5 +1,5 @@
 from Tkinter import *
-from conf import Mop
+from minimop.conf import Mop
 import math
 import paho.mqtt.client as mqtt
 import json
