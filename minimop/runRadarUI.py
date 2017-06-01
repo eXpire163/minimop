@@ -1,6 +1,9 @@
 from Tkinter import *
+from conf import Mop
 import math
 from ftSense import FTSense
+import paho.mqtt.client as mqtt
+import json
 
 master = Tk()
 
@@ -20,10 +23,19 @@ botmid_x = width/2
 botmid_y = 500
 
 
+def on_connect(self, client, userdata, flags, rc):
+    self.printme("Connected with result code " + str(rc))
+    client.subscribe(Mop.mqtt_radar)
+
+def on_message(self, client, userdata, msg):
+    self.printme(msg.topic + " " + str(msg.payload))
+    info = json.load(msg.payload)
+    drawTo(info[0], info[1], "green")
+
 def drawTo(angle, dist, color):
 
-    w.create_rectangle(0, 0, width, height, fill="white", stipple="gray50")
-    w.create_rectangle(0, 0, width, height, fill="white", stipple="gray25")
+    # w.create_rectangle(0, 0, width, height, fill="white", stipple="gray50")
+    # w.create_rectangle(0, 0, width, height, fill="white", stipple="gray25")
 
     length = dist
 
@@ -39,20 +51,12 @@ def drawTo(angle, dist, color):
 # w.create_rectangle(50, 25, 150, 75, fill="blue")
 
 
-
-def update(step, stepsize, radar_vars):
-
-    distance = sense.get_distance()
-    step = (step + stepsize)%180
-    drawTo(step, distance, "green")
-    radar_vars[step] = distance
-    master.after(250, update, step, stepsize, radar_vars)
+client = mqtt.Client()
+client.on_connect = on_connect
+client.on_message = on_message
 
 
-for x in range(0, 180):
-    radar_values[x] = 0.0
+client.connect(Mop.mqtt_server, Mop.mqtt_port, 60)
 
-sense = FTSense(True)
 
-master.after(250, update, step, stepsize, radar_values)
 master.mainloop()
