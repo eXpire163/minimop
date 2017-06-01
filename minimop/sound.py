@@ -3,14 +3,15 @@ from tempfile import TemporaryFile
 from gtts import gTTS
 import paho.mqtt.client as mqtt
 import pygame
+from conf import Mop
 
 
 class Sound(object):
 
 
-    def printme(self, text):
-        print("SOUND: " + text)
-    # The callback for when the client receives a CONNACK response from the server.
+    def printme(self, txt, debug=False):
+        Mop.printme(self.__class__.__name__, txt, debug)
+# The callback for when the client receives a CONNACK response from the server.
 
 
     def on_connect(self, client, userdata, flags, rc):

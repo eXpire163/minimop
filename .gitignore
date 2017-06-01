@@ -3,3 +3,4 @@
 __pycache__
 opencv/
 Adafruit_Python_SSD1306/
+minimop/log

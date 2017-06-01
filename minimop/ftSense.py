@@ -6,6 +6,7 @@ except ImportError:
     print "using mock gpio"
 
 from helper.mathf import Mathf
+from conf import Mop
 import atexit
 import time
 
@@ -18,8 +19,12 @@ class FTSense:
     SERVO = 11  # 7
     SERVO_ACTIVE = False
 
-    def __init__(self):
-        print GPIO.getmode()
+    def printme(self, txt, debug=False):
+        Mop.printme(self.__class__.__name__, txt, debug)
+
+    def __init__(self, servo_active = False):
+        self.SERVO_ACTIVE = servo_active
+
         GPIO.setmode(GPIO.BCM)
         atexit.register(self.on_close)
 

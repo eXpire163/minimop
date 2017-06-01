@@ -13,6 +13,10 @@ class GPIO(object):
         print(txt)
 
     @staticmethod
+    def getmode():
+        return GPIO.BCM
+
+    @staticmethod
     def setup(a, b):
         print(a, b)
 
@@ -27,6 +31,8 @@ class GPIO(object):
     @staticmethod
     def cleanup():
         print "cleanup"
+
+
 
     @staticmethod
     def PWM(port, mhz):

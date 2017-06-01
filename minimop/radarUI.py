@@ -1,11 +1,13 @@
 from Tkinter import *
 import math
+from ftSense import FTSense
 
 master = Tk()
 
 width = 1000
 height = 500
 
+radar_values = [181]
 
 step = 0
 stepsize = 5
@@ -37,13 +39,20 @@ def drawTo(angle, dist, color):
 # w.create_rectangle(50, 25, 150, 75, fill="blue")
 
 
-def update(step, stepsize):
 
+def update(step, stepsize, radar_vars):
+
+    distance = sense.get_distance()
     step = (step + stepsize)%180
-    drawTo(step, 500, "green")
-    master.after(250, update, step, stepsize)
+    drawTo(step, distance, "green")
+    radar_vars[step] = distance
+    master.after(250, update, step, stepsize, radar_vars)
 
 
+for x in range(0, 180):
+    radar_values[x] = 0.0
 
-master.after(250, update, step, stepsize)
+sense = FTSense(True)
+
+master.after(250, update, step, stepsize, radar_values)
 master.mainloop()
