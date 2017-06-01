@@ -28,14 +28,14 @@ class FTSense:
         GPIO.setmode(GPIO.BCM)
         atexit.register(self.on_close)
 
-        #distance senosr
+        # distance senosr
         GPIO.setup(self.TRIG, GPIO.OUT)
         GPIO.setup(self.ECHO, GPIO.IN)
         GPIO.output(self.TRIG, False)
         self.printme("Waiting For Sensor To Settle")
         time.sleep(2)
 
-        #distance servo
+        # distance servo
         if self.SERVO_ACTIVE:
             GPIO.setup(self.SERVO, GPIO.OUT)
             self.p = GPIO.PWM(self.SERVO, 50)
@@ -46,7 +46,7 @@ class FTSense:
 
 
     def printme(self, txt):
-        ## type: ( ) -> txt
+        # type: ( ) -> txt
         print("ftSense: {}".format(txt))
 
     def get_distance(self, printinfo=False):
