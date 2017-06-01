@@ -5,7 +5,3 @@ radar = FTRadar()
 while True:
     radar.update()
 
-
-
-
-

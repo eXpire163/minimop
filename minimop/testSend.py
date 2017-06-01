@@ -12,8 +12,6 @@ def printme(text):
     print("VIDEO: "+text)
 
 client = mqtt.Client()
-
-
 client.connect("localhost", 1883, 60)
 
 #client.loop_start()

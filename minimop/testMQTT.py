@@ -1,9 +1,9 @@
-import sound
+import runSound
 import time
 
 
 print("startup main")
-s = sound.Sound("test.mosquitto.org", 1883)
+s = runSound.Sound("test.mosquitto.org", 1883)
 print("running main")
 
 

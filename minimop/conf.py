@@ -9,6 +9,10 @@ class Mop(object):
     mqtt_server = "localhost"
     mqtt_port = 1833
 
+    # MQTT Channels
+
+    mqtt_radar = "minimop/radar"
+
 
     @staticmethod
     def printme(source, msg, debug=True):
