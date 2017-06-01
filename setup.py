@@ -8,14 +8,15 @@ setup(name='Minimop',
       license='GNU General Public License v2.0',
       platforms='Raspberry Pi',
       packages=['minimop',
-                'fonts',
-                'fx',
-                'images',
                 'minimop.hardware',
                 'minimop.helper',
                 'minimop.log',
                 'minimop.mocks',
                 'minimop.run',
                 'minimop.tests'
-                ]
+                ],
+      data_files={'fonts': ['fonts/*.'],
+                  'images': ['images/*'],
+                  'fx': ['fx/*']
+                  }
       )
