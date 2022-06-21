@@ -1,4 +1,4 @@
-numpy==1.12.1
+numpy==1.22.0
 gTTS==1.2.0
 gTTS-token==1.1.1
 Pillow==8.1.1
